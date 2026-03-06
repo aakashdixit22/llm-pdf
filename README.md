@@ -207,10 +207,6 @@ Production: Kubernetes + Managed Vector DB + Load Balancer
 - **Tool optimization**: Precompute common queries (e.g., "top findings")
 - **Fact verification**: RAG-Fusion (generate 3 queries, combine results, cross-check)
 
-#### **Observability**
-- **Tracing**: LangSmith for agent execution graphs
-- **Metrics**: Prometheus (query latency, tool usage, token costs)
-- **Alerts**: PagerDuty for failed queries or latency spikes
 
 ---
 
@@ -255,7 +251,50 @@ Production: Kubernetes + Managed Vector DB + Load Balancer
 
 ## 🧪 Testing
 
-Run the test suite to validate end-to-end agent performance:
+### Quick API Test
+
+**Request:**
+```bash
+POST http://localhost:8000/query
+Content-Type: application/json
+
+{
+  "query": "How many cybersecurity companies are in Ireland?"
+}
+```
+
+**Response Example:**
+```json
+{
+  "answer": "**Direct Answer:** There are 489 firms offering cyber security products or services to the market or employing staff in internal cyber security operations in Ireland.\n\n**Supporting Evidence:** \nAccording to the report, \"There are 489 firms offering cyber security products or services to the market or employing staff in internal cyber security operations in Ireland.\" (Page 4)\n\n**Methodology:** \nThe report was commissioned by Cyber Ireland and Cyber Skills, led by Perspective Economics. The report outlines the size and make-up of Ireland's cyber security sector, assessing its economic contribution to Ireland's economy, in addition to benchmarking and exploring potential sectoral opportunities.",
+  "citations": [
+    {
+      "page": 4
+    }
+  ],
+  "trace_id": "d1603325",
+  "steps": [
+    {
+      "type": "tool_call",
+      "tool": "search_documents",
+      "args": {
+        "query": "number of cybersecurity companies in Ireland",
+        "top_k": "1"
+      }
+    },
+    {
+      "type": "reasoning",
+      "content_preview": "**Direct Answer:** There are 489 firms..."
+    }
+  ],
+  "duration_ms": 1110.48,
+  "query": "How many cybersecurity companies are in Ireland?"
+}
+```
+
+### Test Suite
+
+Run automated tests to validate end-to-end agent performance:
 
 ```bash
 python -m tests.test_scenarios
