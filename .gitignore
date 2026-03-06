@@ -1,0 +1,23 @@
+# Environment
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Vector DB
+chroma_db/
+
+# IDE
+.vscode/
+.idea/
+
+# Logs (keep structure, ignore contents)
+logs/*.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Virtual environment
+venv/
+.venv/

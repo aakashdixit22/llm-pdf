@@ -1,0 +1,32 @@
+# Core Framework
+fastapi==0.115.6
+uvicorn==0.34.0
+pydantic==2.10.4
+python-dotenv==1.0.1
+
+# PDF Processing
+pdfplumber==0.11.4
+PyMuPDF==1.25.3
+camelot-py[cv]==0.11.0
+opencv-python-headless==4.10.0.84
+
+# LLM & Agent
+langchain==0.3.14
+langchain-groq==0.1.9
+langchain-community==0.3.14
+langgraph==0.2.62
+groq==0.11.0
+
+# Embeddings & Vector Store
+chromadb==0.5.23
+sentence-transformers==3.3.1
+
+# Search & Retrieval
+rank-bm25==0.2.2
+
+# Math & Calculation
+simpleeval==1.0.3
+
+# Logging & Utils
+structlog==24.4.0
+uuid7==0.1.0
