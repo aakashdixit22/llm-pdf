@@ -1,65 +1,40 @@
 # Cyber Ireland 2022 Report - Agentic RAG System
 
-An autonomous question-answering system for the Cyber Ireland 2022 Report, featuring intelligent PDF parsing, hybrid retrieval, and multi-step reasoning using LangGraph.
+Autonomous Q&A system for the Cyber Ireland 2022 Report using LangGraph, hybrid retrieval, and intelligent PDF parsing.
 
 ---
 
 ## 🚀 Quick Start
 
-### Prerequisites
-- Python 3.10+
-- Groq API key ([Get one here](https://console.groq.com))
+**Prerequisites:** Python 3.10+, Groq API key
 
-### Setup
-
-1. **Clone and navigate to the project**
+**Setup:**
 ```bash
-cd "c:\Users\aakash\Desktop\New folder (3)"
-```
-
-2. **Create and activate virtual environment**
-```bash
-python -m venv venv
-source venv/Scripts/activate  # Windows Git Bash
-# OR
-venv\Scripts\activate  # Windows CMD
-```
-
-3. **Install dependencies**
-```bash
+# Install dependencies
 pip install -r requirements.txt
+
+# Set environment variable
+echo "GROQ_API_KEY=your_key_here" > .env
+
+# Place PDF in project root
+# State-of-the-Cyber-Security-Sector-in-Ireland-2022-Report.pdf
 ```
 
-4. **Set up environment variables**
-Create a `.env` file in the project root:
+**Execute:**
 ```bash
-GROQ_API_KEY=your_groq_api_key_here
-```
-
-5. **Place the PDF**
-Put `State-of-the-Cyber-Security-Sector-in-Ireland-2022-Report.pdf` in the project root.
-
-### Execution
-
-**Step 1: Run the ETL Pipeline**
-```bash
+# 1. Run ETL pipeline (extract + embed + store)
 python -m etl.run_pipeline
-```
-This extracts text and tables from the PDF, generates embeddings, and stores them in ChromaDB.
 
-**Step 2: Start the API Server**
-```bash
+# 2. Start API server
 uvicorn api.main:app --reload --port 8000
-```
 
-**Step 3: Query the System**
-```bash
+# 3. Query
 curl -X POST "http://localhost:8000/query" \
   -H "Content-Type: application/json" \
   -d '{"query": "What are the top cyber security challenges in Ireland?"}'
 ```
 
-Or visit `http://localhost:8000/docs` for the interactive API documentation.
+API docs: `http://localhost:8000/docs`
 
 ---
 
@@ -82,9 +57,7 @@ The Cyber Ireland 2022 Report contains **complex nested tables, multi-column lay
    - Extracts page-level metadata (dimensions, fonts)
    - Complements pdfplumber for hybrid validation
 
-3. **camelot-py**: Available as backup
-   - OpenCV-based table detection (installed but not primary)
-   - Computationally expensive; used only when pdfplumber fails
+
 
 **Data Liquidity Achievement:**
 
